@@ -27,12 +27,14 @@ All 128 cores participate. Work is distributed across cores with barriers for sy
 
 | Rev | File 				| Key Insight |
 |-----|---------------------------------|-------------|
-| 2.0 | `rev2_0_row_parallel.cpp` | Cyclic row distribution — each core handles rows `i = tile_id, tile_id + 128, ...`. Simple but every core reads all N columns of B. |
+| 2.0 | `rev2_0_row_parallel.cpp` | Cyclic row distribution - each core handles rows `i = tile_id, tile_id + 128, ...`. Simple but every core reads all N columns of B. |
 | 2.1 | `rev2_1_2d_block.cpp` | 2D block decomposition (bsg_y=rows, bsg_x=cols). Each core only needs N/P_c columns of B, cutting per-core B traffic. A and C in DMEM; B still from DRAM. |
-| 2.2 | `rev2_2_scratchpad_tiling.cpp` | B tile now also buffered in DMEM. All inner-loop reads (A, B, C) are local — zero network traffic during compute. |
+| 2.2 | `rev2_2_scratchpad_tiling.cpp` | B tile now also buffered in DMEM. All inner-loop reads (A, B, C) are local - zero network traffic during compute. |
 | 2.3 | `rev2_3_load_pipeline.cpp` | DRAM→DMEM copies restructured as burst loads (8 outstanding requests before storing). Exploits non-blocking loads to hide network latency. |
-| 2.4 | `rev2_4_double_buffer.cpp` | Double-buffered A/B — while computing on buf[cur], next k-tile loads into buf[nxt]. Overlaps load latency with compute. |
-
+| 2.4 | `rev2_4_double_buffer.cpp` | Double-buffered A/B - while computing on buf[cur], next k-tile loads into buf[nxt]. Overlaps load latency with compute. |
+| 2.5 | `rev2_5_staggered.cpp` | Staggered k-tile start: each core begins at `k_tile_offset = __bsg_id % num_k_tiles`. Distributes vcache bank accesses temporally to reduce contention. |
+| 2.6 | `rev2_6_fma_interleave.cpp` | Interleaved fmaf() scheduling — processes two k-values at once, alternating rows 0&1 with 2&3 to break back-to-back data dependencies (bypass stalls) on the in-order pipeline. |
+| 2.7 | `rev2_7_register_accum.cpp` | 16 register accumulators (c00..c33) per 4×4 sub-tile. C partials stay in registers across all k-tiles; DRAM C written exactly once. Eliminates the DMEM load-modify-store bottleneck from rev2_6. |
 
 ## Common Patterns
 
