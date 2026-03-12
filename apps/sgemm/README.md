@@ -27,9 +27,16 @@ All 128 cores participate. Work is distributed across cores with barriers for sy
 
 | Rev | File 				| Key Insight |
 |-----|---------------------------------|-------------|
-
+| 2.0 | `rev2_0_row_parallel.cpp` | Cyclic row distribution — each core handles rows `i = tile_id, tile_id + 128, ...`. Simple but every core reads all N columns of B. |
+| 2.1 | `rev2_1_2d_block.cpp` | 2D block decomposition (bsg_y=rows, bsg_x=cols). Each core only needs N/P_c columns of B, cutting per-core B traffic. A and C in DMEM; B still from DRAM. |
+| 2.2 | `rev2_2_scratchpad_tiling.cpp` | B tile now also buffered in DMEM. All inner-loop reads (A, B, C) are local — zero network traffic during compute. |
+| 2.3 | `rev2_3_load_pipeline.cpp` | DRAM→DMEM copies restructured as burst loads (8 outstanding requests before storing). Exploits non-blocking loads to hide network latency. |
+| 2.4 | `rev2_4_double_buffer.cpp` | Double-buffered A/B — while computing on buf[cur], next k-tile loads into buf[nxt]. Overlaps load latency with compute. |
 
 
 ## Common Patterns
 
 - **`bsg_fence()`** after C-zeroing ensures non-blocking DRAM stores complete before subsequent loads read them back.
+- **Global DMEM buffers** (not stack-allocated) to avoid DMEM stack overflow on tile cores.
+- **`asm volatile ("" ::: "memory")`** as a compiler barrier to separate load-issue from compute phases.
+- **8-point `bsg_printf` checkpoints** in every revision for debugging execution flow.
