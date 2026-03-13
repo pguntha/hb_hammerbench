@@ -1,0 +1,97 @@
+--------------------------------
+DRAM Utilization
+--------------------------------
+Read        = 0.16 %
+Write       = 0.00 %
+Busy        = 0.11 %
+Idle        = 99.73 %
+--------------------------------
+Utilization = 0.16 %
+Non-Idle    = 0.27 %
+--------------------------------
+
+--------------------------------
+Vcache Utilization
+--------------------------------
+Idle        = 98.97 % (129237170.0)
+Store       = 0.41 % (532480.0)
+Load        = 0.52 % (672988.0)
+Atomic      = 0.00 % (0.0)
+Miss        = 0.09 % (114814.0)
+Stall Rsp   = 0.02 % (23412.0)
+--------------------------------
+Miss Rate   = 0.13 %
+--------------------------------
+Utilization = 0.92 %
+Busy cycles = 1.01 %
+--------------------------------
+130580864.0
+
+--------------------------------
+Core Utilization
+--------------------------------
+stall_depend_dram_load         = 29791        (0.01 %)
+stall_depend_dram_seq_load     = 353022       (0.07 %)
+stall_depend_idiv              = 15           (0.00 %)
+stall_depend_local_load        = 4262         (0.00 %)
+stall_amo_rl                   = 15           (0.00 %)
+stall_bypass                   = 8191         (0.00 %)
+stall_fence                    = 8817         (0.00 %)
+stall_remote_req               = 3219         (0.00 %)
+stall_remote_credit            = 156          (0.00 %)
+stall_idiv_busy                = 347          (0.00 %)
+stall_barrier                  = 518010408    (99.22 %)
+stall_remote_ld_wb             = 20           (0.00 %)
+stall_ifetch_wait              = 11834        (0.00 %)
+stall_remote_flw_wb            = 952          (0.00 %)
+Total Stall                    = 518431049    (99.30 %)
+--------------------------------
+bubble_branch_miss             = 17148        (0.00 %)
+bubble_jalr_miss               = 24           (0.00 %)
+bubble_icache_miss             = 904          (0.00 %)
+Total Bubble                   = 18076        (0.00 %)
+--------------------------------
+fadd                           = 524288       (14.35 %)
+fmul                           = 524288       (14.35 %)
+fmv_w_x                        = 376832       (10.32 %)
+fmv_x_w                        = 245760       (6.73 %)
+local_ld                       = 94826        (2.60 %)
+local_st                       = 11803        (0.32 %)
+remote_ld_dram                 = 49445        (1.35 %)
+remote_seq_ld_dram             = 163840       (4.49 %)
+remote_st_dram                 = 90112        (2.47 %)
+remote_st_global               = 389          (0.01 %)
+local_flw                      = 245760       (6.73 %)
+local_fsw                      = 245760       (6.73 %)
+remote_flw_dram                = 114690       (3.14 %)
+remote_seq_flw_dram            = 344062       (9.42 %)
+remote_fsw_dram                = 442368       (12.11 %)
+amoswap                        = 12           (0.00 %)
+beq                            = 494          (0.01 %)
+bne                            = 29419        (0.81 %)
+blt                            = 22           (0.00 %)
+bge                            = 8341         (0.23 %)
+bltu                           = 18           (0.00 %)
+bgeu                           = 21           (0.00 %)
+jal                            = 70           (0.00 %)
+jalr                           = 24           (0.00 %)
+slli                           = 5193         (0.14 %)
+add                            = 30545        (0.84 %)
+addi                           = 102344       (2.80 %)
+sub                            = 181          (0.00 %)
+lui                            = 703          (0.02 %)
+or                             = 384          (0.01 %)
+ori                            = 9            (0.00 %)
+and                            = 384          (0.01 %)
+andi                           = 108          (0.00 %)
+divu                           = 12           (0.00 %)
+remu                           = 12           (0.00 %)
+fence                          = 3            (0.00 %)
+barsend                        = 1            (0.00 %)
+barrecv                        = 128          (0.00 %)
+Total Instr Executed   = 3652651     
+--------------------------------
+Utilization   = 0.70 %
+--------------------------------
+Runtime       = 4080652 cycles
+--------------------------------
