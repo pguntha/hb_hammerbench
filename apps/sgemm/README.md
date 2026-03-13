@@ -35,6 +35,7 @@ All 128 cores participate. Work is distributed across cores with barriers for sy
 | 2.5 | `rev2_5_staggered.cpp` | Staggered k-tile start: each core begins at `k_tile_offset = __bsg_id % num_k_tiles`. Distributes vcache bank accesses temporally to reduce contention. |
 | 2.6 | `rev2_6_fma_interleave.cpp` | Interleaved fmaf() scheduling — processes two k-values at once, alternating rows 0&1 with 2&3 to break back-to-back data dependencies (bypass stalls) on the in-order pipeline. |
 | 2.7 | `rev2_7_register_accum.cpp` | 16 register accumulators (c00..c33) per 4×4 sub-tile. C partials stay in registers across all k-tiles; DRAM C written exactly once. Eliminates the DMEM load-modify-store bottleneck from rev2_6. |
+| 2.8 | `rev2_8_streamlined_regaccum.cpp` | Simplified register-accumulation: drops double-buffering and staggering (which added barrier skew at small N), keeps register accumulators and interleaved fmaf(). Combines rev2_1's simple control flow with rev2_7's register efficiency. |
 
 ## Common Patterns
 
